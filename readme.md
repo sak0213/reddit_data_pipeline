@@ -3,8 +3,8 @@ Here's my Reddit Metrics pipeline tool. At a high-level, it takes an input CSV o
 
 To start, clone the repository:
 
-`git clone [your-repository-url]
-cd [your-project-directory]`
+`git clone [https://github.com/sak0213/reddit_data_pipeline]
+cd [https://github.com/sak0213/reddit_data_pipeline]`
 
 Create a file named "creds.py" with the following variables:
 
