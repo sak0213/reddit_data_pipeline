@@ -99,7 +99,6 @@ rfc3986-validator==0.1.1
 rfc3987-syntax==1.1.0
 rpds-py==0.27.0
 ruptures==1.1.10
-scikit-learn==1.6.1
 scipy==1.13.1
 Send2Trash==1.8.3
 six==1.17.0

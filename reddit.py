@@ -153,7 +153,6 @@ class RedditManager:
             else:
                 next
 
-
     def create_thread_id(self):
                 
         def parse_post_id(link):
