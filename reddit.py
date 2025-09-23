@@ -180,7 +180,7 @@ class RedditManager:
 
 
             return sum_comments, avg_comments,med_comments,count_40_comments,max_score,unique_authors,perct_delted,last_comment
-
+    
     def create_threads_df(self):
         self.create_thread_id()
 
@@ -225,7 +225,8 @@ class RedditManager:
             thread_keyword = self.input_df.loc[i, 'keyword']
             thread_url = self.input_df.loc[i, 'permalink']
 
-
+            # clean any user permalinks
+            # here i'll add code to clean any user-based permalinks. need to decide output style
 
             all_comments = submission.comments.list()
 
@@ -250,6 +251,7 @@ class RedditManager:
 
         threads_df = pd.DataFrame(data=thread_list, columns=threads_df_cols)
         threads_df = threads_df.set_index('id')
+        threads_df['is_active_recently'] = threads_df['last_activity_utc'] <= self.timestamp_24h_ago
         threads_df.to_csv('threads.csv')
         comments_summary_df = pd.DataFrame(comments_summary_list, columns=comment_summary_df_cols)
         comments_summary_df = comments_summary_df.set_index('id')
@@ -309,11 +311,11 @@ class OpportunityAssessment:
 
             else:
                 status = f'0: {status} but poor comment recency or score'
-                reaction = 'Ignore'
+                reaction = 'Alternative'
         
         else:
             status = 'post older than 3 days'
-            reaction = 'Ignore'
+            reaction = 'Alternative'
 
         return status, reaction
 
@@ -331,4 +333,4 @@ class OpportunityAssessment:
     def output_opp_csv(self):
         self.analysis_df = self.analysis_df.rename({'reddit_url_x':'reddit_url'}, axis=1)
         output_df = self.analysis_df[['keyword', 'subreddit', 'title', 'reddit_url', 'score', 'num_comments', 'age_days', 'recent_comments_72h', 'avg_comment_len_words', 'top_comment_score', 'path_reco', 'reason']]
-        output_df.to_csv('opportunities.csv')
+        output_df.to_csv('opportunities.csv',index=False)
